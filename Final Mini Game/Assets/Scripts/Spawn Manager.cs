@@ -12,24 +12,29 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemyObject();
+        //SpawnEnemyObject();
+        StartCoroutine(SpawnRandomAmountOfEnemies());
         SpawnCollectibleObject();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void SpawnEnemyObject()
     {
-        Instantiate(enemyObject, new Vector3(0, 1, 10), enemyObject.transform.rotation);
+        Instantiate(enemyObject, RandomeSpawnPosition(), enemyObject.transform.rotation);
     }
 
-    void SpawnCollectibleObject()
+    public void SpawnCollectibleObject()
     {
-        Instantiate(collectibleObject, new Vector3(0, 1, 15), collectibleObject.transform.rotation);
+        for (int i = 0; i < coinAmount; i++)
+        {
+            Instantiate(collectibleObject, RandomeSpawnPosition(), collectibleObject.transform.rotation);
+        }
+        coinAmount = 2;
     }
 
     Vector3 RandomeSpawnPosition()
@@ -37,5 +42,22 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPosition = new Vector3(Random.Range(-areaRange, areaRange), 1f, Random.Range(-areaRange, areaRange));
 
         return spawnPosition;
+    }
+
+    IEnumerator SpawnRandomAmountOfEnemies()
+    {
+        while (true)
+        {
+            float randomSeconds = Random.Range(1, 8);
+
+            yield return new WaitForSeconds(randomSeconds);
+
+            int numberOfEnimes = Random.Range(1, 3);
+
+            for (int i = 0; i < numberOfEnimes; i++)
+            {
+                Instantiate(enemyObject, RandomeSpawnPosition(), enemyObject.transform.rotation);
+            }
+        }
     }
 }

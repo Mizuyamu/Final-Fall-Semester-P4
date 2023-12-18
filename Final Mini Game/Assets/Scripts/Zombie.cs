@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Zombie : MonoBehaviour
-{
+{ 
     public float speed = 10f;
 
     private Rigidbody _zombieRb;
@@ -25,9 +25,10 @@ public class Zombie : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("The Zombie hit the player!");
+            GameObject.Find("Game Manager").GetComponent<GameManager>().GameOver();
         }
     }
 }

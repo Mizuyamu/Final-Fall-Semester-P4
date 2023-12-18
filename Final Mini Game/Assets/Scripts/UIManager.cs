@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinCountText.text = "Coins: 0";
+        coinCountText.text = "Coins: " + coins.ToString();
     }
 
     public void UpdateCoinCount()
